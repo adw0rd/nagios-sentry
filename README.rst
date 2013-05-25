@@ -1,5 +1,5 @@
 Installation
--------------
+==============
 
 Install ``nagios-sentry`` to Sentry venv::
 
@@ -13,7 +13,7 @@ Add to ``INSTALLED_APPS`` in config file ``/etc/sentry.conf``::
 Copy the file ``check_sentry_messages.py`` to the Nagios plugins directory.
 
 How to use
------------
+===========
 
 Go to the Nagios plugins directory and run this example::
 
