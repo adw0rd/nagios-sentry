@@ -23,7 +23,8 @@ How to use
 
 Go to the Nagios plugins directory and run this example::
 
-    ./check_sentry_messages.py -w 10 -c 20 --sentry /var/www/sentry/bin/sentry --config /etc/sentry.conf --seconds=300
+    ./check_sentry_messages.py -w 10 -c 20 \
+        --sentry /var/www/sentry/bin/sentry --config /etc/sentry.conf --seconds=300
 
 Where:
 
