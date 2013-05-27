@@ -4,10 +4,12 @@ import datetime
 import subprocess
 from optparse import OptionParser
 
-UNKNOWN = -1
-OK = 0
-WARNING = 1
-CRITICAL = 2
+STATUSES = {
+    'UNKNOWN': -1,
+    'OK': 0,
+    'WARNING': 1,
+    'CRITICAL': 2,
+}
 
 LEVELS = (
     (10, 'DEBUG'),
@@ -40,13 +42,13 @@ CMD = '{sentry} --config={config} count_of_messages'.format(
 result = subprocess.Popen(CMD, stdout=subprocess.PIPE, shell=True)
 result.wait()
 output = int(result.stdout.read())
-print output
 
-status = UNKNOWN
+status = 'UNKNOWN'
 if output >= options.critical:
-    status = CRITICAL
+    status = 'CRITICAL'
 elif output >= options.warning:
-    status = WARNING
+    status = 'WARNING'
 else:
-    status = OK
-sys.exit(status)
+    status = 'OK'
+print '{0}: {1}'.format(status, output)
+sys.exit(STATUSES.get(status, -1))
