@@ -37,16 +37,24 @@ if not options.sentry_bin:
 if not options.config_path:
     parser.error('Path to config not given')
 
-CMD = '{sentry} --config={config} count_of_messages'.format(
-    sentry=options.sentry_bin, config=options.config_path)
-result = subprocess.Popen(CMD, stdout=subprocess.PIPE, shell=True)
+CMD = ['{sentry} --config={config} count_of_messages'.format(
+    sentry=options.sentry_bin, config=options.config_path)]
+if options.seconds:
+    CMD.append('--seconds={o.seconds}'.format(o=options))
+if options.project:
+    CMD.append('--project={o.project}'.format(o=options))
+if options.level:
+    CMD.append('--level={o.level}'.format(o=options))
+if options.logger:
+    CMD.append('--logger={o.logger}'.format(o=options))
+result = subprocess.Popen(" ".join(CMD), stdout=subprocess.PIPE, shell=True)
 result.wait()
 output = int(result.stdout.read())
 
 status = 'UNKNOWN'
-if output >= options.critical:
+if output >= int(options.critical):
     status = 'CRITICAL'
-elif output >= options.warning:
+elif output >= int(options.warning):
     status = 'WARNING'
 else:
     status = 'OK'
