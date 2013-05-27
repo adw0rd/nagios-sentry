@@ -43,8 +43,9 @@ class Command(BaseCommand):
         datetime_offset = now - datetime.timedelta(seconds=seconds)
 
         queryset = Event.objects.filter(
-            project_id=project_id,
             datetime__gt=datetime_offset)
+        if project_id:
+            queryset = queryset.filter(project_id=project_id)
         if logger:
             queryset = queryset.filter(logger=logger)
         if level:
