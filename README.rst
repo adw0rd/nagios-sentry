@@ -3,6 +3,9 @@ nagios-sentry
 
 Plugin for Nagios, which check a count of messages in Sentry.
 
+.. image:: https://pypip.in/d/nagios-sentry/badge.png
+    :target: http://pypi.python.org/pypi/nagios-sentry
+
 
 Installation
 --------------
