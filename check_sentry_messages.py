@@ -49,14 +49,17 @@ if options.logger:
     CMD.append('--logger={o.logger}'.format(o=options))
 result = subprocess.Popen(" ".join(CMD), stdout=subprocess.PIPE, shell=True)
 result.wait()
-output = int(result.stdout.read())
 
 status = 'UNKNOWN'
-if output >= int(options.critical):
-    status = 'CRITICAL'
-elif output >= int(options.warning):
-    status = 'WARNING'
-else:
-    status = 'OK'
+output = result.stdout.read()
+
+if str(output).isdigit():
+    output = int(output)
+    if output >= int(options.critical):
+        status = 'CRITICAL'
+    elif output >= int(options.warning):
+        status = 'WARNING'
+    else:
+        status = 'OK'
 print '{0}: {1}'.format(status, output)
 sys.exit(STATUSES.get(status, -1))
