@@ -51,7 +51,7 @@ result = subprocess.Popen(" ".join(CMD), stdout=subprocess.PIPE, shell=True)
 result.wait()
 
 status = 'UNKNOWN'
-output = result.stdout.read()
+output = result.stdout.read().strip(' \t\n\r')
 
 if str(output).isdigit():
     output = int(output)
